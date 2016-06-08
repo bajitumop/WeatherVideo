@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/WeatherVideoWithGit.iml" filepath="$PROJECT_DIR$/WeatherVideoWithGit.iml" />
       <module fileurl="file://$PROJECT_DIR$/WheatherVideo.iml" filepath="$PROJECT_DIR$/WheatherVideo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">WeatherVideo</string>
+    <string name="weather">Погода</string>
+    <string name="video">Видео</string>
+    <string name="selectChapter">Выберите раздел</string>
+</resources>

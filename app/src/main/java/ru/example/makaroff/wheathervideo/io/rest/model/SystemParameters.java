@@ -1,6 +1,8 @@
 package ru.example.makaroff.wheathervideo.io.rest.model;
 
-public class SystemParameters {
+import java.io.Serializable;
+
+public class SystemParameters implements Serializable {
     protected int type;
     protected long id;
     protected float message;

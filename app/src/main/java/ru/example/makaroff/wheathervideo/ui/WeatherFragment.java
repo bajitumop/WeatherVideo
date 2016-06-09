@@ -26,7 +26,7 @@ public class WeatherFragment extends Fragment {
     @FragmentArg
     protected Weather weather;
 
-    public static Fragment newInstance(Weather inputWeather) {
+    public static WeatherFragment newInstance(Weather inputWeather) {
         return WeatherFragment_.builder().weather(inputWeather).build();
     }
 

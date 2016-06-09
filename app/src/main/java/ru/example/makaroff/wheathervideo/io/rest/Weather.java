@@ -26,6 +26,15 @@ public class Weather implements Serializable{
     protected String name;
     protected long id;
     protected String cod;
+    protected boolean isSuccess;
+
+    public boolean isSuccess() {
+        return isSuccess;
+    }
+
+    public void setSuccess(boolean success) {
+        isSuccess = success;
+    }
 
     public String getCod(){
         return cod;

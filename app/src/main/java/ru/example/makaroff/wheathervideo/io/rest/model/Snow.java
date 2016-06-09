@@ -1,6 +1,8 @@
 package ru.example.makaroff.wheathervideo.io.rest.model;
 
-public class Snow {
+import java.io.Serializable;
+
+public class Snow implements Serializable {
     protected int volume;
 
     public int getVolume() {

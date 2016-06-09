@@ -1,6 +1,8 @@
 package ru.example.makaroff.wheathervideo.io.rest.model;
 
-public class Rain {
+import java.io.Serializable;
+
+public class Rain implements Serializable {
     protected float volume;
 
     public float getVolume() {

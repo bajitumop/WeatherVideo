@@ -1,6 +1,8 @@
 package ru.example.makaroff.wheathervideo.io.rest.model;
 
-public class WeatherBlock {
+import java.io.Serializable;
+
+public class WeatherBlock implements Serializable {
     protected long id;
     protected String main;
     protected String description;

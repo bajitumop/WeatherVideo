@@ -1,6 +1,8 @@
 package ru.example.makaroff.wheathervideo.io.rest.model;
 
-public class Wind {
+import java.io.Serializable;
+
+public class Wind implements Serializable {
     protected float speed;
     protected float deg;
 

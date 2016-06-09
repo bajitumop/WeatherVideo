@@ -1,7 +1,9 @@
 package ru.example.makaroff.wheathervideo.io.rest.model;
 
 
-public class MainParameters {
+import java.io.Serializable;
+
+public class MainParameters implements Serializable {
 
     private final float KELVIN_AMENDMENT = 273.15f;
 

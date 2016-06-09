@@ -1,21 +1,14 @@
 package ru.example.makaroff.wheathervideo.io.rest.model;
 
-public class Coordinations {
+public class Coordinations{
+    private double lon;
+    private double lat;
 
-    protected float lon;
-
-    protected float lat;
-
-    public Coordinations(float lat, float lon) {
-        this.lat = lat;
-        this.lon = lon;
-    }
-
-    public float getLon() {
+    public double getLon() {
         return lon;
     }
 
-    public float getLat() {
+    public double getLat() {
         return lat;
     }
 }

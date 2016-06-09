@@ -1,9 +1,9 @@
 package ru.example.makaroff.wheathervideo.io.rest.model;
 
-public class Rain {
-    protected float volume;
+public class Snow {
+    protected int volume;
 
-    public float getVolume() {
+    public int getVolume() {
         return volume;
     }
 }

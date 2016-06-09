@@ -1,5 +1,6 @@
 package ru.example.makaroff.wheathervideo.ui;
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @Click(R.id.btnWeather)
     protected void getWeather(){
         networkService.getWeather(lat, lon);
+
     }
 
     @ViewById
@@ -49,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe
     protected void onWeatherGet(Weather weather){
-        btnWeather.setText(weather.getCod());
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.rootForFragment, WeatherFragment.newInstance(weather))
+                    .commit();
+        }
     }
 }

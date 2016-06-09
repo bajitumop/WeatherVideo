@@ -10,13 +10,6 @@ import retrofit.http.Query;
 public interface ApiRetrofit {
 
     String WEATHER_URL = "http://api.openweathermap.org";
-/*
-    @FormUrlEncoded
-    @POST("/data/2.5/weather")
-    void getWeather (@Field("lon") double lon,
-                     @Field("lat") double lat,
-                     @Field("APPID") String token,
-                     MyCallback<Weather> cb);*/
 
     @GET("/data/2.5/weather")
     void getWeather (@Query("lat") double lat,

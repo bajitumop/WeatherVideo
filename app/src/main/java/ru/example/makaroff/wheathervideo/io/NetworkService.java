@@ -32,7 +32,7 @@ public class NetworkService {
     }
 
     public void getWeather(double lat, double lon) {
-        service.getWeather(lon, lat, "bccb923f56b2eb578252e27b401a1eb9", new MyCallback<>(Weather.class));
+        service.getWeather(lat, lon, "bccb923f56b2eb578252e27b401a1eb9", new MyCallback<>(Weather.class));
     }
 
 }

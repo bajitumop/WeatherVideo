@@ -1,15 +1,85 @@
 package ru.example.makaroff.wheathervideo.io.rest;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Weather{
+import ru.example.makaroff.wheathervideo.io.rest.model.Clouds;
+import ru.example.makaroff.wheathervideo.io.rest.model.Coordinations;
+import ru.example.makaroff.wheathervideo.io.rest.model.MainParameters;
+import ru.example.makaroff.wheathervideo.io.rest.model.Rain;
+import ru.example.makaroff.wheathervideo.io.rest.model.Snow;
+import ru.example.makaroff.wheathervideo.io.rest.model.SystemParameters;
+import ru.example.makaroff.wheathervideo.io.rest.model.WeatherBlock;
+import ru.example.makaroff.wheathervideo.io.rest.model.Wind;
 
-    @JsonProperty("cod")
+public class Weather implements Serializable{
+
+    protected Coordinations coord;
+    protected MainParameters main;
+    protected String base;
+    protected WeatherBlock[] weather;
+    protected Wind wind;
+    protected Clouds clouds;
+    protected Rain rain;
+    protected Snow snow;
+    protected long dt;
+    protected SystemParameters sys;
+    protected String name;
+    protected long id;
     protected String cod;
 
     public String getCod(){
         return cod;
+    }
+
+    public Coordinations getCoord() {
+        return coord;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public WeatherBlock[] getWeatherBlock() {
+        return weather;
+    }
+
+    public SystemParameters getSys() {
+        return sys;
+    }
+
+    public long getDt() {
+        return dt;
+    }
+
+    public Snow getSnow() {
+        return snow;
+    }
+
+    public Rain getRain() {
+        return rain;
+    }
+
+    public Clouds getClouds() {
+        return clouds;
+    }
+
+    public Wind getWind() {
+        return wind;
+    }
+
+    public String getBase() {
+        return base;
+    }
+
+    public MainParameters getMain() {
+        return main;
+    }
+
+    public WeatherBlock getWeatherBlockAtPosition(short index) {
+        return weather[index];
     }
 }

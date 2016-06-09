@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:name=".MyApplication_"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity_">
+        <activity android:name=".ui.MainActivity_"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

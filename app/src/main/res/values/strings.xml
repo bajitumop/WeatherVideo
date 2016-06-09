@@ -5,4 +5,5 @@
     <string name="selectChapter">Выберите раздел</string>
     <string name="ErrorConnection">Не удалось связаться с сервером,\nпроверьте настройки интернет</string>
     <string name="logoWeatherDescription">Картинка погоды</string>
+    <string name="SelectedChapter">Выбран раздел</string>
 </resources>

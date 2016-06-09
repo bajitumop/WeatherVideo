@@ -3,11 +3,14 @@ package ru.example.makaroff.wheathervideo.ui;
 import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.InstanceState;
+import org.androidannotations.annotations.ViewById;
 import org.greenrobot.eventbus.Subscribe;
 
 import ru.example.makaroff.wheathervideo.MyApplication;
@@ -24,58 +27,103 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
         MyApplication.BUS.unregister(this);
     }
 
-    @Bean
-    protected NetworkService networkService;
+    @ViewById
+    protected FrameLayout mainContainer;
+
+    @ViewById
+    protected FrameLayout rightContainer;
 
     @InstanceState
     Weather weather;
 
+    // 0 - Для неактивных разделов
+    // 1 - Для активного раздела погоды
+    // 2 - Для активного раздела видео
     public static int selectedButton = 0;
-    public static final int WEATHER_SELECTED = 0;
-    public static final int VIDEO_SELECTED = 1;
+    public static final int NOTHING_SELECTED = 0;
+    public static final int WEATHER_SELECTED = 1;
+    public static final int VIDEO_SELECTED = 2;
 
-    private double lat;
-    private double lon;
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        initializeFragments(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT);
+    }
+
+    private void initializeFragments(boolean isPortrait){
+        changeFragment(R.id.mainContainer, MainFragment.newInstance(this));
+        if (isPortrait) {
+            rightContainer.setVisibility(View.GONE);
+        } else {
+            if (selectedButton == NOTHING_SELECTED) {
+                selectedButton = WEATHER_SELECTED;
+            }
+            switch (selectedButton) {
+                case WEATHER_SELECTED:
+                    getWeather();
+                    break;
+                case VIDEO_SELECTED:
+                    getVideo();
+                    break;
+                default:
+                    throw new RuntimeException("wrong value of selectedButton in MainActivity");
+            }
+            rightContainer.setVisibility(View.VISIBLE);
+        }
+    }
 
     @AfterViews
     protected void init(){
         MyApplication.BUS.register(this);
-        changeFragment(R.id.mainContainer, MainFragment.newInstance(this));
-        if (!isPortraitConfiguration()) {
-            getWeather();
-        }
+        initializeFragments(isPortraitConfiguration());
     }
 
     private void getWeather() {
-        if (isPortraitConfiguration()) {
-            changeFragment(R.id.mainContainer, ProgressFragment.newInstance());
-        } else {
-            changeFragment(R.id.rightContainer, ProgressFragment.newInstance());
-        }
+        selectedButton = WEATHER_SELECTED;
+        setProgressFragment();
 
         //Блок определения координат
-        lat = 54.11;        lon = 45.11;
-        networkService.getWeather(lat, lon);
+        double lat = 54.11;        double lon = 45.11;
+        MyApplication.networkService.getWeather(lat, lon);
     }
 
     private void getVideo() {
+        selectedButton = VIDEO_SELECTED;
+        setProgressFragment();
+        setErrorFragment();
     }
 
     @Subscribe
     protected void onWeatherGet(Weather weather){
         this.weather = weather;
         if (weather.isSuccess()) {
-            if (isPortraitConfiguration()) {
-                changeFragment(R.id.mainContainer, WeatherFragment.newInstance(weather));
-            } else {
-                changeFragment(R.id.rightContainer, WeatherFragment.newInstance(weather));
-            }
+            setWeatherFragment();
         } else {
-            if (isPortraitConfiguration()) {
-                changeFragment(R.id.mainContainer, ErrorFragment.newInstance());
-            } else {
-                changeFragment(R.id.rightContainer, ErrorFragment.newInstance());
-            }
+            setErrorFragment();
+        }
+    }
+
+    private void setProgressFragment(){
+        if (isPortraitConfiguration()) {
+            changeFragment(R.id.mainContainer, ProgressFragment.newInstance());
+        } else {
+            changeFragment(R.id.rightContainer, ProgressFragment.newInstance());
+        }
+    }
+
+    private void setErrorFragment(){
+        if (isPortraitConfiguration()) {
+            changeFragment(R.id.mainContainer, ErrorFragment.newInstance());
+        } else {
+            changeFragment(R.id.rightContainer, ErrorFragment.newInstance());
+        }
+    }
+
+    private void setWeatherFragment(){
+        if (isPortraitConfiguration()) {
+            changeFragment(R.id.mainContainer, WeatherFragment.newInstance(weather));
+        } else {
+            changeFragment(R.id.rightContainer, WeatherFragment.newInstance(weather));
         }
     }
 

@@ -19,12 +19,16 @@
 
     <Button
         android:id="@+id/btnWeather"
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_button_inactive"
         android:text="@string/weather" />
 
     <Button
         android:id="@+id/btnVideo"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/shape_button_inactive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/video" />

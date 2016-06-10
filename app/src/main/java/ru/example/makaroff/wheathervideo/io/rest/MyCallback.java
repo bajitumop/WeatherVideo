@@ -1,13 +1,8 @@
 package ru.example.makaroff.wheathervideo.io.rest;
 
-import android.util.Log;
-
-import org.greenrobot.eventbus.EventBus;
-
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import retrofit.mime.TypedByteArray;
 import ru.example.makaroff.wheathervideo.MyApplication;
 
 public class MyCallback<T extends Weather> implements Callback<T> {

@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
@@ -18,7 +17,6 @@ import org.greenrobot.eventbus.Subscribe;
 import ru.example.makaroff.wheathervideo.MyApplication;
 import ru.example.makaroff.wheathervideo.R;
 import ru.example.makaroff.wheathervideo.Utilits.EventForMainFragment;
-import ru.example.makaroff.wheathervideo.io.NetworkService;
 import ru.example.makaroff.wheathervideo.io.rest.Weather;
 
 @EActivity(R.layout.activity_main)

@@ -1,6 +1,8 @@
 package ru.example.makaroff.wheathervideo.ui;
 
 import android.content.res.Configuration;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,17 +17,12 @@ import org.greenrobot.eventbus.Subscribe;
 
 import ru.example.makaroff.wheathervideo.MyApplication;
 import ru.example.makaroff.wheathervideo.R;
+import ru.example.makaroff.wheathervideo.Utilits.EventForMainFragment;
 import ru.example.makaroff.wheathervideo.io.NetworkService;
 import ru.example.makaroff.wheathervideo.io.rest.Weather;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity implements MainFragment.OnButtonsClick {
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        MyApplication.BUS.unregister(this);
-    }
 
     @ViewById
     protected FrameLayout mainContainer;
@@ -35,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
 
     @InstanceState
     Weather weather;
+
+    MainFragment mainFragment;
 
     // 0 - Для неактивных разделов
     // 1 - Для активного раздела погоды
@@ -50,14 +49,29 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
         initializeFragments(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT);
     }
 
-    private void initializeFragments(boolean isPortrait){
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         changeFragment(R.id.mainContainer, MainFragment.newInstance(this));
+    }
+
+    private void initializeFragments(boolean isPortrait){
+        //mainFragment = MainFragment.newInstance(this);
+        //changeFragment(R.id.mainContainer, mainFragment);
         if (isPortrait) {
-            rightContainer.setVisibility(View.GONE);
+            if (selectedButton == NOTHING_SELECTED) {
+                rightContainer.setVisibility(View.GONE);
+                mainContainer.setVisibility(View.VISIBLE);
+            } else {
+                rightContainer.setVisibility(View.VISIBLE);
+                mainContainer.setVisibility(View.GONE);
+            }
         } else {
             if (selectedButton == NOTHING_SELECTED) {
                 selectedButton = WEATHER_SELECTED;
             }
+            rightContainer.setVisibility(View.VISIBLE);
+            mainContainer.setVisibility(View.VISIBLE);
             switch (selectedButton) {
                 case WEATHER_SELECTED:
                     getWeather();
@@ -68,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
                 default:
                     throw new RuntimeException("wrong value of selectedButton in MainActivity");
             }
-            rightContainer.setVisibility(View.VISIBLE);
         }
     }
 
@@ -81,7 +94,12 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
     private void getWeather() {
         selectedButton = WEATHER_SELECTED;
         setProgressFragment();
-
+        if (isPortraitConfiguration()) {
+            mainContainer.setVisibility(View.GONE);
+            rightContainer.setVisibility(View.VISIBLE);
+        } else {
+            MyApplication.BUS.post(new EventForMainFragment());
+        }
         //Блок определения координат
         double lat = 54.11;        double lon = 45.11;
         MyApplication.networkService.getWeather(lat, lon);
@@ -89,7 +107,14 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
 
     private void getVideo() {
         selectedButton = VIDEO_SELECTED;
+        MyApplication.BUS.post(new EventForMainFragment());
         setProgressFragment();
+        if (isPortraitConfiguration()) {
+            mainContainer.setVisibility(View.GONE);
+            rightContainer.setVisibility(View.VISIBLE);
+        } else {
+            MyApplication.BUS.post(new EventForMainFragment());
+        }
         setErrorFragment();
     }
 
@@ -104,27 +129,15 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
     }
 
     private void setProgressFragment(){
-        if (isPortraitConfiguration()) {
-            changeFragment(R.id.mainContainer, ProgressFragment.newInstance());
-        } else {
-            changeFragment(R.id.rightContainer, ProgressFragment.newInstance());
-        }
+        changeFragment(R.id.rightContainer, ProgressFragment.newInstance());
     }
 
     private void setErrorFragment(){
-        if (isPortraitConfiguration()) {
-            changeFragment(R.id.mainContainer, ErrorFragment.newInstance());
-        } else {
-            changeFragment(R.id.rightContainer, ErrorFragment.newInstance());
-        }
+        changeFragment(R.id.rightContainer, ErrorFragment.newInstance());
     }
 
     private void setWeatherFragment(){
-        if (isPortraitConfiguration()) {
-            changeFragment(R.id.mainContainer, WeatherFragment.newInstance(weather));
-        } else {
-            changeFragment(R.id.rightContainer, WeatherFragment.newInstance(weather));
-        }
+        changeFragment(R.id.rightContainer, WeatherFragment.newInstance(weather));
     }
 
     private boolean isPortraitConfiguration() {
@@ -133,6 +146,24 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
 
     private void changeFragment(int resId, Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(resId, fragment).commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        MyApplication.BUS.unregister(this);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(isPortraitConfiguration() && selectedButton != NOTHING_SELECTED) {
+            selectedButton = NOTHING_SELECTED;
+            mainContainer.setVisibility(View.VISIBLE);
+            rightContainer.setVisibility(View.GONE);
+            MyApplication.BUS.post(new EventForMainFragment());
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override

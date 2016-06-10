@@ -10,11 +10,14 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.Serializable;
 import java.util.Locale;
 
+import ru.example.makaroff.wheathervideo.MyApplication;
 import ru.example.makaroff.wheathervideo.R;
+import ru.example.makaroff.wheathervideo.Utilits.EventForMainFragment;
 
 @EFragment(R.layout.fragment_main)
 public class MainFragment extends Fragment {
@@ -37,37 +40,43 @@ public class MainFragment extends Fragment {
 
     @Click(R.id.btnWeather)
     protected void getWeather(){
-        initializeData(MainActivity.WEATHER_SELECTED);
         onButtonsClick.onWeatherClick();
     }
 
     @Click(R.id.btnVideo)
     protected void getVideo(){
-        initializeData(MainActivity.VIDEO_SELECTED);
         onButtonsClick.onVideoClick();
     }
 
     @AfterViews
     protected void init(){
-        initializeData(MainActivity.selectedButton);
+        changeViews(MainActivity.selectedButton);
     }
 
-    private void initializeData (int flagActiveButton){
+    @Override
+    public void onStart() {
+        super.onStart();
+        MyApplication.BUS.register(this);
+        changeViews(MainActivity.selectedButton);
+    }
+
+    public void changeViews (int flagActiveButton){
         String textForTextView = getString(R.string.SelectedChapter);
         switch(flagActiveButton){
             case MainActivity.WEATHER_SELECTED:
                 btnWeather.setBackgroundResource(R.drawable.shape_button_active);
                 btnVideo.setBackgroundResource(R.drawable.shape_button_inactive);
-                tvSelectChapter.setText(String.format(Locale.getDefault(), "%s %s", textForTextView, getString(R.string.weather)));
+                tvSelectChapter.setText(String.format(Locale.getDefault(), "%s\n%s", textForTextView, getString(R.string.weather)));
                 break;
             case MainActivity.VIDEO_SELECTED:
                 btnWeather.setBackgroundResource(R.drawable.shape_button_inactive);
                 btnVideo.setBackgroundResource(R.drawable.shape_button_active);
-                tvSelectChapter.setText(String.format(Locale.getDefault(), "%s %s", textForTextView, getString(R.string.video)));
+                tvSelectChapter.setText(String.format(Locale.getDefault(), "%s\n%s", textForTextView, getString(R.string.video)));
                 break;
             case MainActivity.NOTHING_SELECTED:
                 btnWeather.setBackgroundResource(R.drawable.shape_button_inactive);
                 btnVideo.setBackgroundResource(R.drawable.shape_button_inactive);
+                tvSelectChapter.setText(getString(R.string.selectChapter));
                 break;
         }
     }
@@ -75,5 +84,10 @@ public class MainFragment extends Fragment {
     interface OnButtonsClick extends Serializable {
         void onWeatherClick();
         void onVideoClick();
+    }
+
+    @Subscribe
+    public void onEvent(EventForMainFragment e){
+        changeViews(MainActivity.selectedButton);
     }
 }

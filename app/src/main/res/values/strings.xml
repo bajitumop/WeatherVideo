@@ -3,7 +3,8 @@
     <string name="weather">Погода</string>
     <string name="video">Видео</string>
     <string name="selectChapter">Выберите раздел</string>
-    <string name="ErrorConnection">Не удалось связаться с сервером,\nпроверьте настройки интернет</string>
+    <string name="errorConnection">Не удалось связаться с сервером,\nпроверьте настройки интернет</string>
     <string name="logoWeatherDescription">Картинка погоды</string>
-    <string name="SelectedChapter">Выбран раздел</string>
+    <string name="selectedChapter">Выбран раздел</string>
+    <string name="errorFromServer">Ошибка! Ответ от сервера</string>
 </resources>

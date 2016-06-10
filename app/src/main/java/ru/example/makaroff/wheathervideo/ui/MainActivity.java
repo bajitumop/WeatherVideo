@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
     @InstanceState
     Weather weather;
 
-    MainFragment mainFragment;
-
     // 0 - Для неактивных разделов
     // 1 - Для активного раздела погоды
     // 2 - Для активного раздела видео
@@ -56,8 +54,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
     }
 
     private void initializeFragments(boolean isPortrait){
-        //mainFragment = MainFragment.newInstance(this);
-        //changeFragment(R.id.mainContainer, mainFragment);
         if (isPortrait) {
             if (selectedButton == NOTHING_SELECTED) {
                 rightContainer.setVisibility(View.GONE);
@@ -115,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
         } else {
             MyApplication.BUS.post(new EventForMainFragment());
         }
-        setErrorFragment();
+        setErrorFragment(getString(R.string.errorConnection));
     }
 
     @Subscribe
@@ -124,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
         if (weather.isSuccess()) {
             setWeatherFragment();
         } else {
-            setErrorFragment();
+            setErrorFragment(weather.getMessage());
         }
     }
 
@@ -132,8 +128,8 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
         changeFragment(R.id.rightContainer, ProgressFragment.newInstance());
     }
 
-    private void setErrorFragment(){
-        changeFragment(R.id.rightContainer, ErrorFragment.newInstance());
+    private void setErrorFragment(String message){
+        changeFragment(R.id.rightContainer, ErrorFragment.newInstance(message));
     }
 
     private void setWeatherFragment(){

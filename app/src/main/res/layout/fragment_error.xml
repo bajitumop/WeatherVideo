@@ -13,10 +13,11 @@
         android:src="@drawable/error_icon"/>
 
     <TextView
+        android:id="@+id/tvErrorConnection"
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ErrorConnection"
+        android:text="@string/errorConnection"
         android:layout_gravity="center"
         android:gravity="center"/>
 

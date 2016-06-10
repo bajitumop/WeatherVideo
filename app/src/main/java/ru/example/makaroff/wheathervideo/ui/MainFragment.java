@@ -1,6 +1,5 @@
 package ru.example.makaroff.wheathervideo.ui;
 
-import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.widget.Button;
 import android.widget.TextView;
@@ -61,7 +60,7 @@ public class MainFragment extends Fragment {
     }
 
     public void changeViews (int flagActiveButton){
-        String textForTextView = getString(R.string.SelectedChapter);
+        String textForTextView = getString(R.string.selectedChapter);
         switch(flagActiveButton){
             case MainActivity.WEATHER_SELECTED:
                 btnWeather.setBackgroundResource(R.drawable.shape_button_active);

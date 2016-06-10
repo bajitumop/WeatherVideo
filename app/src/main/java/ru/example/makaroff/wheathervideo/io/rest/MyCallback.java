@@ -25,7 +25,7 @@ public class MyCallback<T extends Weather> implements Callback<T> {
     @Override
     public void success(T t, Response response) {
         if (t != null) {
-            t.setSuccess(true);
+            t.setSuccess(t.getMessage() == null);
             MyApplication.BUS.post(t);
         }
     }

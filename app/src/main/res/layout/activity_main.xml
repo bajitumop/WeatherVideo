@@ -15,15 +15,18 @@
         android:layout_weight="1"
         android:id="@+id/mainContainer"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-    </FrameLayout>
+        android:layout_height="match_parent"/>
+
+    <android.support.v4.widget.Space
+        android:id="@+id/space"
+        android:layout_width="16dp"
+
+        android:layout_height="match_parent"/>
 
     <FrameLayout
         android:layout_weight="100"
         android:id="@+id/rightContainer"
-        android:layout_marginLeft="16dp"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-    </FrameLayout>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

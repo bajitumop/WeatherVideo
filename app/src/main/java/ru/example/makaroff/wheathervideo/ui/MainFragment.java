@@ -1,5 +1,6 @@
 package ru.example.makaroff.wheathervideo.ui;
 
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,7 +12,6 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.Serializable;
 import java.util.Locale;
 
 import ru.example.makaroff.wheathervideo.MyApplication;
@@ -59,6 +59,12 @@ public class MainFragment extends Fragment {
         changeViews(MainActivity.selectedButton);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        MyApplication.BUS.unregister(this);
+    }
+
     public void changeViews (int flagActiveButton){
         String textForTextView = getString(R.string.selectedChapter);
         switch(flagActiveButton){
@@ -80,7 +86,7 @@ public class MainFragment extends Fragment {
         }
     }
 
-    interface OnButtonsClick extends Serializable {
+    interface OnButtonsClick extends Parcelable {
         void onWeatherClick();
         void onVideoClick();
     }

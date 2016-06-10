@@ -7,4 +7,5 @@
     <string name="logoWeatherDescription">Картинка погоды</string>
     <string name="selectedChapter">Выбран раздел</string>
     <string name="errorFromServer">Ошибка! Ответ от сервера</string>
+    <string name="nextUpdate">Следующее обновление будет доступно в</string>
 </resources>

@@ -27,10 +27,6 @@ public class ErrorFragment extends Fragment {
 
     @AfterViews
     protected void init(){
-        if (message == null){
-            tvErrorConnection.setText(getString(R.string.errorConnection));
-        } else {
-            tvErrorConnection.setText(String.format(Locale.getDefault(), "%s:\n%s", getString(R.string.errorFromServer), message));
-        }
+        tvErrorConnection.setText(message);
     }
 }

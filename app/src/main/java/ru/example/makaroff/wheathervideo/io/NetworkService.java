@@ -9,12 +9,23 @@ import java.util.concurrent.TimeUnit;
 
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
-import ru.example.makaroff.wheathervideo.io.rest.ApiRetrofit;
+import retrofit.http.GET;
+import retrofit.http.Query;
 import ru.example.makaroff.wheathervideo.io.rest.MyCallback;
 import ru.example.makaroff.wheathervideo.io.rest.Weather;
 
 @EBean(scope = EBean.Scope.Singleton)
 public class NetworkService {
+
+    String WEATHER_URL = "http://api.openweathermap.org";
+
+    public interface ApiRetrofit {
+        @GET("/data/2.5/weather")
+        void getWeather (@Query("lat") double lat,
+                         @Query("lon") double lon,
+                         @Query("APPID") String token,
+                         MyCallback<Weather> cb);
+    }
 
     protected ApiRetrofit service;
 
@@ -24,7 +35,7 @@ public class NetworkService {
         okHttpClient.setReadTimeout(10, TimeUnit.SECONDS);
         okHttpClient.setConnectTimeout(10, TimeUnit.SECONDS);
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(ApiRetrofit.WEATHER_URL)
+                .setEndpoint(WEATHER_URL)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setClient(new OkClient(okHttpClient))
                 .build();

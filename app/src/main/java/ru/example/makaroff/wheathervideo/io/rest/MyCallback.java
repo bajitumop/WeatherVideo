@@ -30,12 +30,12 @@ public class MyCallback<T extends Weather> implements Callback<T> {
         T t;
         try {
             t = clazz.newInstance();
+            t.setSuccess(false);
+            MyApplication.BUS.post(t);
         } catch (InstantiationException e){
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-        t.setSuccess(false);
-        MyApplication.BUS.post(t);
     }
 }

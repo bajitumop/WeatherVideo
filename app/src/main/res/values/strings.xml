@@ -1,11 +1,27 @@
 <resources>
     <string name="app_name">WeatherVideo</string>
+
+    <!--MainFragment-->
     <string name="weather">Погода</string>
     <string name="video">Видео</string>
     <string name="selectChapter">Выберите раздел</string>
-    <string name="errorConnection">Не удалось связаться с сервером,\nпроверьте настройки интернет</string>
-    <string name="logoWeatherDescription">Картинка погоды</string>
     <string name="selectedChapter">Выбран раздел</string>
+
+    <!--ErrorFragment-->
+    <string name="errorConnection">Не удалось связаться с сервером,\nпроверьте настройки интернет</string>
     <string name="errorFromServer">Ошибка! Ответ от сервера</string>
-    <string name="nextUpdate">Следующее обновление будет доступно в</string>
+
+    <!--WeatherFragment-->
+    <string name="logoWeatherDescription">Картинка погоды</string>
+    <string name="nextUpdate">Следующее обновление в</string>
+
+    <!--Геолокация-->
+    <string name="errorLocationTitle">Невозможно определить местоположение</string>
+    <string name="errorLocationMessage">Для определения местоположения требуется включить GPS-модуль или Мобильные данные. Перейти в настройки?</string>
+    <string name="errorLocation">Ошибка определения местоположения.</string>
+    <string name="no">Нет</string>
+    <string name="yes">Да</string>
+    <string name="locationPermissionsDenied">Вы запретили приложению использовать геолокацию, погода будет показываться по последним известным координатам</string>
+    <string name="locationIsOff">GPS и мобильные данные отключены</string>
+    <string name="locationAsLastKnown">Геолокация и мобильные данные отключены, погода будет определяться по последним известным координатам</string>
 </resources>

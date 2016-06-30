@@ -43,7 +43,7 @@ public class MainActivity
     public static final int VIDEO_SELECTED = 2;
 
     private static final long TIME_REPEAT_WEATHER_REQUEST = 1000 * 60 * 10;
-    private static final long MIN_TIME = 1000 * 60; //1 мин
+    private static final long MIN_TIME = 1000; //1 с
     private static final long MIN_DISTANCE = 1000 * 10; // 10 км
 
     @ViewById
@@ -64,8 +64,6 @@ public class MainActivity
     private LocationManager locationManager;
 
     private Location lastKnownLocation;
-
-    private boolean mayGetLocation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -187,14 +185,10 @@ public class MainActivity
 
         @Override
         public void onProviderEnabled(String provider) {
-            mayGetLocation = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
-                    locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         }
 
         @Override
         public void onProviderDisabled(String provider) {
-            mayGetLocation = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
-                    locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         }
     };
 
@@ -223,7 +217,7 @@ public class MainActivity
                 }
             }
         }
-        if (!mayGetLocation) {
+        if (!mayGetLocation()) {
             if (lastKnownLocation == null) {
                 setErrorFragment(getString(R.string.locationIsOff));
             } else {
@@ -233,6 +227,12 @@ public class MainActivity
                 requestWeather(lastKnownLocation);
             }
         }
+    }
+
+    private boolean mayGetLocation() {
+        return locationManager != null &&
+                (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
     }
 
     private void requestWeather(Location location){

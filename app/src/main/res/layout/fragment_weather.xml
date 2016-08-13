@@ -14,7 +14,7 @@
             android:id="@+id/tvTempWeather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Temp"
+            android:text="Температура"
             android:textSize="30sp" />
 
         <TextView
@@ -22,21 +22,22 @@
             android:layout_width="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_height="wrap_content"
-            android:text="TempDiff"
+            android:text="Интервал температур"
             android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/ivIconWeather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:contentDescription="Картинка погоды"/>
 
         <TextView
             android:id="@+id/tvCityWeather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="City"
+            android:text="Город"
             android:textSize="20sp" />
 
         <TextView
@@ -44,16 +45,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Description"
+            android:text="Описание"
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/tvUpdateTime"
+            android:id="@+id/tvNextUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="UpdateDate"
-            android:textSize="15sp" />
+            android:text="Обновить тогда то" />
 
     </LinearLayout>
 

@@ -5,18 +5,14 @@ import android.support.v4.app.Fragment;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Locale;
 
-import ru.example.makaroff.wheathervideo.MyApplication;
 import ru.example.makaroff.wheathervideo.R;
-import ru.example.makaroff.wheathervideo.Utilits.EventForMainFragment;
 
 @EFragment(R.layout.fragment_main)
 public class MainFragment extends Fragment {
@@ -29,7 +25,7 @@ public class MainFragment extends Fragment {
     }
 
     @ViewById
-    TextView tvSelectChapter;
+    protected TextView tvSelectChapter;
 
     @ViewById
     protected Button btnVideo;
@@ -44,25 +40,7 @@ public class MainFragment extends Fragment {
 
     @Click(R.id.btnVideo)
     protected void getVideo(){
-        onButtonsClick.onVideoClick();
-    }
-
-    @AfterViews
-    protected void init(){
-        changeViews(MainActivity.selectedButton);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        MyApplication.BUS.register(this);
-        changeViews(MainActivity.selectedButton);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        MyApplication.BUS.unregister(this);
+       onButtonsClick.onVideoClick();
     }
 
     public void changeViews (int flagActiveButton){
@@ -86,13 +64,8 @@ public class MainFragment extends Fragment {
         }
     }
 
-    interface OnButtonsClick extends Parcelable {
+    public interface OnButtonsClick extends Parcelable {
         void onWeatherClick();
         void onVideoClick();
-    }
-
-    @Subscribe
-    public void onEvent(EventForMainFragment e){
-        changeViews(MainActivity.selectedButton);
     }
 }

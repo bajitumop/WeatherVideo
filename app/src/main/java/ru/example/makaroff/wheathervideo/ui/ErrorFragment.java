@@ -8,8 +8,6 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.Locale;
-
 import ru.example.makaroff.wheathervideo.R;
 
 @EFragment(R.layout.fragment_error)
@@ -18,15 +16,15 @@ public class ErrorFragment extends Fragment {
     @FragmentArg
     protected String message;
 
-    public static ErrorFragment newInstance(String inputMessage) {
-        return ErrorFragment_.builder().message(inputMessage).build();
+    public static ErrorFragment newInstance(String message) {
+        return ErrorFragment_.builder().message(message).build();
     }
 
     @ViewById
     protected TextView tvErrorConnection;
 
     @AfterViews
-    protected void init(){
+    public void setMessage(){
         tvErrorConnection.setText(message);
     }
 }

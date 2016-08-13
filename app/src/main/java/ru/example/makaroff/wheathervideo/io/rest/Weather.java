@@ -2,14 +2,14 @@ package ru.example.makaroff.wheathervideo.io.rest;
 
 import java.io.Serializable;
 
-import ru.example.makaroff.wheathervideo.io.rest.model.Clouds;
-import ru.example.makaroff.wheathervideo.io.rest.model.Coordinations;
-import ru.example.makaroff.wheathervideo.io.rest.model.MainParameters;
-import ru.example.makaroff.wheathervideo.io.rest.model.Rain;
-import ru.example.makaroff.wheathervideo.io.rest.model.Snow;
-import ru.example.makaroff.wheathervideo.io.rest.model.SystemParameters;
-import ru.example.makaroff.wheathervideo.io.rest.model.WeatherBlock;
-import ru.example.makaroff.wheathervideo.io.rest.model.Wind;
+import ru.example.makaroff.wheathervideo.io.rest.model.WeatherModel.Clouds;
+import ru.example.makaroff.wheathervideo.io.rest.model.WeatherModel.Coordinations;
+import ru.example.makaroff.wheathervideo.io.rest.model.WeatherModel.MainParameters;
+import ru.example.makaroff.wheathervideo.io.rest.model.WeatherModel.Rain;
+import ru.example.makaroff.wheathervideo.io.rest.model.WeatherModel.Snow;
+import ru.example.makaroff.wheathervideo.io.rest.model.WeatherModel.SystemParameters;
+import ru.example.makaroff.wheathervideo.io.rest.model.WeatherModel.WeatherBlock;
+import ru.example.makaroff.wheathervideo.io.rest.model.WeatherModel.Wind;
 
 public class Weather implements Serializable{
 

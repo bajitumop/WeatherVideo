@@ -1,5 +1,4 @@
-package ru.example.makaroff.wheathervideo.io.rest.model;
-
+package ru.example.makaroff.wheathervideo.io.rest.model.WeatherModel;
 
 import java.io.Serializable;
 

@@ -1,8 +1,8 @@
-package ru.example.makaroff.wheathervideo.io.rest.model;
+package ru.example.makaroff.wheathervideo.io.rest.model.WeatherModel;
 
 import java.io.Serializable;
 
-public class Coordinations implements Serializable{
+public class Coordinations implements Serializable {
     private double lon;
     private double lat;
 

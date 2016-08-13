@@ -24,4 +24,5 @@
     <string name="locationPermissionsDenied">Вы запретили приложению использовать геолокацию, погода будет показываться по последним известным координатам</string>
     <string name="locationIsOff">GPS и мобильные данные отключены</string>
     <string name="locationAsLastKnown">Геолокация и мобильные данные отключены, погода будет определяться по последним известным координатам</string>
+    <string name="listOfFiles">Список файлов</string>
 </resources>
